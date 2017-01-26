@@ -8,11 +8,13 @@ import (
 )
 
 func main() {
+	// Sanity check arguments
 	if len(os.Args) < 2 {
 		printUsage()
 		os.Exit(1)
 	}
 
+	// Determine command
 	switch os.Args[1] {
 	case "countdown":
 		countdown.Run(os.Args[2:])
