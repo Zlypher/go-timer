@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/zlypher/go-timer/timeutil"
 )
 
 // Run sets up the countdown and starts it.
@@ -39,13 +41,6 @@ func runCountdown(duration, interval time.Duration) {
 		}
 
 		diff := endTime.Sub(tick)
-		printRemainingTime(diff)
+		fmt.Printf("\r%v", timeutil.Print(diff))
 	}
-}
-
-// printRemainingTime prints the remaining time based on the given duration.
-func printRemainingTime(dur time.Duration) {
-	ns := dur.Nanoseconds()
-	timestamp := time.Unix(0, ns).UTC()
-	fmt.Printf("\r%v", timestamp.Format("15:04:05.000"))
 }
