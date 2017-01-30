@@ -8,8 +8,14 @@ import (
 	"github.com/zlypher/go-timer/timeutil"
 )
 
+type Countdown struct{}
+
+func (c Countdown) Description() string {
+	return "Hello countdown"
+}
+
 // Run sets up the countdown and starts it.
-func Run(args []string) {
+func (c Countdown) Run(args []string) {
 	// Initialize countdown
 	input := args[0]
 	duration, err := time.ParseDuration(input)

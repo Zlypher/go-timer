@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/zlypher/go-timer/command"
 	"github.com/zlypher/go-timer/countdown"
 )
 
@@ -14,10 +15,15 @@ func main() {
 		os.Exit(1)
 	}
 
+	commands := make(map[string]command.Commander)
+	commands["countdown"] = countdown.Countdown{}
+
+	cmd := commands["countdown"]
+
 	// Determine command
 	switch os.Args[1] {
 	case "countdown":
-		countdown.Run(os.Args[2:])
+		cmd.Run(os.Args[2:])
 	case "version":
 		printVersion()
 		os.Exit(0)
