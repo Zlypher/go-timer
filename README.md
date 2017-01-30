@@ -12,11 +12,19 @@ go-timer [command] [options]
 
 ## Commands
 
+### stopwatch
+
+Starts a stopwatch timer. Currently the stopwatch counts until the command is cancelled.
+
+```bash
+go-timer stopwatch # Starts the stopwatch
+```
+
 ### countdown
 
 Starts a countdown timer with the specified duration. Currently only values are supported, that can be natively parsed by [golang's time.ParseDuration](https://golang.org/pkg/time/#ParseDuration)
 
-```
+```bash
 go-timer countdown 10s # Countdown from 10 seconds
 go-timer countdown 5m # Countdown from 5 minutes
 ```
