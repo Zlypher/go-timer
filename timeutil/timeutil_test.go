@@ -30,3 +30,46 @@ func TestPrint(t *testing.T) {
 		}
 	}
 }
+
+func TestPrintVersions(t *testing.T) {
+	cases := []string{
+		"100ms",
+		"500ms",
+		"1s",
+		"1m",
+		"10m",
+		"1h",
+		"12h34m56s789ms",
+	}
+
+	for _, c := range cases {
+		duration, err := time.ParseDuration(c)
+		if err != nil {
+			t.Error(err)
+		}
+
+		got := Print(duration)
+		gotAlt := printAlternative(duration)
+		if got != gotAlt {
+			t.Errorf("(Print(%q) == %q) != (printAlternative(%q) == %q)", c, got, c, gotAlt)
+		}
+	}
+}
+
+func BenchmarkPrint(b *testing.B) {
+	duration, _ := time.ParseDuration("12h34m56s789ms")
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		Print(duration)
+	}
+}
+
+func BenchmarkPrintAlternative(b *testing.B) {
+	duration, _ := time.ParseDuration("12h34m56s789ms")
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		printAlternative(duration)
+	}
+}
