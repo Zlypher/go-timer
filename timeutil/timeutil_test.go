@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func TestPrint(t *testing.T) {
+func TestFormat(t *testing.T) {
 	cases := []struct {
 		in, want string
 	}{
@@ -24,14 +24,14 @@ func TestPrint(t *testing.T) {
 			t.Error(err)
 		}
 
-		got := Print(duration)
+		got := Format(duration)
 		if got != c.want {
 			t.Errorf("ParseDuration(%q) == %q, want %q", c.in, got, c.want)
 		}
 	}
 }
 
-func TestPrintVersions(t *testing.T) {
+func TestFormatVersions(t *testing.T) {
 	cases := []string{
 		"100ms",
 		"500ms",
@@ -48,28 +48,28 @@ func TestPrintVersions(t *testing.T) {
 			t.Error(err)
 		}
 
-		got := Print(duration)
-		gotAlt := printAlternative(duration)
+		got := Format(duration)
+		gotAlt := formatAlternative(duration)
 		if got != gotAlt {
-			t.Errorf("(Print(%q) == %q) != (printAlternative(%q) == %q)", c, got, c, gotAlt)
+			t.Errorf("(Format(%q) == %q) != (formatAlternative(%q) == %q)", c, got, c, gotAlt)
 		}
 	}
 }
 
-func BenchmarkPrint(b *testing.B) {
+func BenchmarkFormat(b *testing.B) {
 	duration, _ := time.ParseDuration("12h34m56s789ms")
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		Print(duration)
+		Format(duration)
 	}
 }
 
-func BenchmarkPrintAlternative(b *testing.B) {
+func BenchmarkformatAlternative(b *testing.B) {
 	duration, _ := time.ParseDuration("12h34m56s789ms")
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		printAlternative(duration)
+		formatAlternative(duration)
 	}
 }

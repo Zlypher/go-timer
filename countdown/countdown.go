@@ -47,6 +47,6 @@ func runCountdown(duration, interval time.Duration) {
 		}
 
 		diff := endTime.Sub(tick)
-		fmt.Printf("\r%v", timeutil.Print(diff))
+		fmt.Printf("\r%v", timeutil.Format(diff))
 	}
 }

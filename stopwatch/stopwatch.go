@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/zlypher/go-timer/timeutil"
 )
 
 type Stopwatch struct{}
@@ -22,6 +24,8 @@ func (s Stopwatch) Run(args []string) {
 		os.Exit(1)
 	}
 
+	// Setup something to read and react to input
+
 	runStopwatch(interval)
 }
 
@@ -31,13 +35,6 @@ func runStopwatch(interval time.Duration) {
 
 	for _ = range time.Tick(interval) {
 		elapsed := time.Since(startTime)
-		printTime(elapsed)
+		fmt.Printf("\r%v", timeutil.Format(elapsed))
 	}
-}
-
-// printTime prints the remaining time based on the given duration.
-func printTime(dur time.Duration) {
-	ns := dur.Nanoseconds()
-	timestamp := time.Unix(0, ns).UTC()
-	fmt.Printf("\r%v", timestamp.Format("15:04:05.000"))
 }

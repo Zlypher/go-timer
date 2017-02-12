@@ -6,6 +6,7 @@ import (
 
 	"github.com/zlypher/go-timer/command"
 	"github.com/zlypher/go-timer/countdown"
+	"github.com/zlypher/go-timer/interval"
 	"github.com/zlypher/go-timer/stopwatch"
 )
 
@@ -24,6 +25,8 @@ func main() {
 		commands["countdown"].Run(os.Args[2:])
 	case "stopwatch":
 		commands["stopwatch"].Run(os.Args[2:])
+	case "interval":
+		commands["interval"].Run(os.Args[2:])
 	case "version":
 		printVersion()
 		os.Exit(0)
@@ -42,6 +45,7 @@ func setupCommands() command.CommandMap {
 	commands := make(command.CommandMap)
 	commands["countdown"] = countdown.Countdown{}
 	commands["stopwatch"] = stopwatch.Stopwatch{}
+	commands["interval"] = interval.Interval{}
 	commands["version"] = command.CallCommand{Func: printVersion}
 	commands["usage"] = command.CallCommand{Func: printUsage}
 	commands["help"] = command.CallCommand{Func: printUsage}
