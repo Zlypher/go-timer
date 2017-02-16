@@ -11,33 +11,26 @@ import (
 )
 
 func main() {
+	args := os.Args
 	// Sanity check arguments
-	if len(os.Args) < 2 {
+	if len(args) < 2 {
 		printUsage()
 		os.Exit(1)
 	}
+
+	name := args[1]
+	arguments := args[2:]
 
 	commands := setupCommands()
-
-	// Determine command
-	switch os.Args[1] {
-	case "countdown":
-		commands["countdown"].Run(os.Args[2:])
-	case "stopwatch":
-		commands["stopwatch"].Run(os.Args[2:])
-	case "interval":
-		commands["interval"].Run(os.Args[2:])
-	case "version":
-		printVersion()
-		os.Exit(0)
-	case "usage":
-		fallthrough
-	case "help":
-		fallthrough
-	default:
+	command, ok := commands[name]
+	if !ok {
+		fmt.Printf("Couldn't find command: %v\n", name)
 		printUsage()
 		os.Exit(1)
 	}
+
+	command.Run(arguments)
+	os.Exit(0)
 }
 
 // setupCommands prepares a mapping of the available commands.
