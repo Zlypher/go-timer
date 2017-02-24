@@ -1,6 +1,7 @@
 package stopwatch
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -9,7 +10,9 @@ import (
 	"github.com/zlypher/go-timer/timeutil"
 )
 
+var in io.Reader = os.Stdin
 var out io.Writer = os.Stdout
+var isRunning bool = true
 
 type Stopwatch struct{}
 
@@ -27,7 +30,20 @@ func (s Stopwatch) Run(args []string) int {
 		return 1
 	}
 
-	// Setup something to read and react to input
+	// Check for input in the background
+	go func() {
+		scanner := bufio.NewScanner(in)
+
+		for scanner.Scan() {
+			text := scanner.Text()
+			if text == "q" {
+				isRunning = false
+				break
+			}
+
+			fmt.Fprintln(out, "INPUT: %v", text)
+		}
+	}()
 
 	runStopwatch(interval)
 	return 0
@@ -38,6 +54,10 @@ func runStopwatch(interval time.Duration) {
 	startTime := time.Now()
 
 	for _ = range time.Tick(interval) {
+		if !isRunning {
+			break
+		}
+
 		elapsed := time.Since(startTime)
 		fmt.Fprintf(out, "\r%v", timeutil.Format(elapsed))
 	}
