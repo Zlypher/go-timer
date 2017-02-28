@@ -1,13 +1,15 @@
 machine:
   environment:
-    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    REPO_PATH: $HOME/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
 
 dependencies:
   override:
-    - mkdir -p "$GOPATH/src/$IMPORT_PATH"
-    - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH"
-    - go build -v
+    - go get -t -d ./...
+    - rm -rf $REPO_PATH
+    - ln -s ~/$CIRCLE_PROJECT_REPONAME $REPO_PATH
 
 test:
   pre:
     - go vet ./...
+  override:
+    - go test ./...
