@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/zlypher/go-timer/command"
 	"github.com/zlypher/go-timer/timeutil"
 )
 
@@ -34,7 +35,7 @@ func (i Interval) Run(args []string) int {
 	interval, err := time.ParseDuration("10ms")
 	if err != nil {
 		fmt.Fprintf(out, "Failed to parse interval: %v", err)
-		return 1
+		return command.RESULT_INTERNAL_ERROR
 	}
 
 	// Parse arguments into config as there might be invalid values
@@ -42,7 +43,7 @@ func (i Interval) Run(args []string) int {
 	config.repeat = *repeatPtr
 
 	runIntervals(config, interval)
-	return 0
+	return command.RESULT_SUCCESS
 }
 
 // parseArguments parses the given cmd arguments into an intervalConfig.

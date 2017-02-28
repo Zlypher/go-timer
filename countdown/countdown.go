@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/zlypher/go-timer/command"
 	"github.com/zlypher/go-timer/timeutil"
 )
 
@@ -24,18 +25,18 @@ func (c Countdown) Run(args []string) int {
 	duration, err := time.ParseDuration(input)
 	if err != nil {
 		fmt.Fprintf(out, "Failed to parse input: %v", err)
-		return 1
+		return command.RESULT_INVALID_ARG
 	}
 	interval, err := time.ParseDuration("10ms")
 	if err != nil {
 		fmt.Fprintf(out, "Failed to parse interval: %v", err)
-		return 1
+		return command.RESULT_INTERNAL_ERROR
 	}
 
 	fmt.Fprintf(out, "Counting down %v\n", duration)
 
 	runCountdown(duration, interval)
-	return 0
+	return command.RESULT_SUCCESS
 }
 
 // runCountdown counts down from the given duration in the given interval steps.

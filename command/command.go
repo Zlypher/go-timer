@@ -1,5 +1,13 @@
 package command
 
+const (
+	RESULT_SUCCESS = iota
+	RESULT_MISSING_ARGS
+	RESULT_CMD_NOT_FOUND
+	RESULT_INVALID_ARG
+	RESULT_INTERNAL_ERROR
+)
+
 // Commander defines an interface for a command to run.
 type Commander interface {
 	Description() string

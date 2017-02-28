@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"testing"
+
+	"github.com/zlypher/go-timer/command"
 )
 
 func TestSetupCommands(t *testing.T) {
@@ -31,11 +33,11 @@ func TestRunGoTimer(t *testing.T) {
 		in   []string
 		want int
 	}{
-		{nil, RESULT_MISSING_ARGS},
-		{[]string{}, RESULT_MISSING_ARGS},
-		{[]string{"go-timer"}, RESULT_MISSING_ARGS},
-		{[]string{"go-timer", "version"}, RESULT_SUCCESS},
-		{[]string{"go-timer", "INVALID"}, RESULT_CMD_NOT_FOUND},
+		{nil, command.RESULT_MISSING_ARGS},
+		{[]string{}, command.RESULT_MISSING_ARGS},
+		{[]string{"go-timer"}, command.RESULT_MISSING_ARGS},
+		{[]string{"go-timer", "version"}, command.RESULT_SUCCESS},
+		{[]string{"go-timer", "INVALID"}, command.RESULT_CMD_NOT_FOUND},
 	}
 
 	for _, c := range cases {

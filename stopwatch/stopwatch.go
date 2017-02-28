@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/zlypher/go-timer/command"
 	"github.com/zlypher/go-timer/timeutil"
 )
 
@@ -27,7 +28,7 @@ func (s Stopwatch) Run(args []string) int {
 	interval, err := time.ParseDuration("10ms")
 	if err != nil {
 		fmt.Fprintf(out, "Failed to parse interval: %v", err)
-		return 1
+		return command.RESULT_INTERNAL_ERROR
 	}
 
 	// Check for input in the background
@@ -46,7 +47,7 @@ func (s Stopwatch) Run(args []string) int {
 	}()
 
 	runStopwatch(interval)
-	return 0
+	return command.RESULT_SUCCESS
 }
 
 // runStopwatch runs the stopwatch and prints the elapsed time.

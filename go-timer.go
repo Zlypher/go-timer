@@ -11,12 +11,6 @@ import (
 	"github.com/zlypher/go-timer/stopwatch"
 )
 
-const (
-	RESULT_SUCCESS = iota
-	RESULT_MISSING_ARGS
-	RESULT_CMD_NOT_FOUND
-)
-
 var out io.Writer = os.Stdout
 
 func main() {
@@ -29,22 +23,21 @@ func runGoTimer(args []string) int {
 	// Sanity check arguments
 	if len(args) < 2 {
 		printUsage()
-		return RESULT_MISSING_ARGS
+		return command.RESULT_MISSING_ARGS
 	}
 
 	name := args[1]
 	arguments := args[2:]
 
 	commands := setupCommands()
-	command, ok := commands[name]
+	cmd, ok := commands[name]
 	if !ok {
 		fmt.Fprintf(out, "Couldn't find command: %v\n", name)
 		printUsage()
-		return RESULT_CMD_NOT_FOUND
+		return command.RESULT_CMD_NOT_FOUND
 	}
 
-	command.Run(arguments)
-	return RESULT_SUCCESS
+	return cmd.Run(arguments)
 }
 
 // setupCommands prepares a mapping of the available commands.
