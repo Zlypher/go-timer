@@ -56,7 +56,10 @@ func setupCommands() command.CommandMap {
 // printUsage prints a help message for go-timer
 func printUsage() {
 	fmt.Fprintln(out, "go-timer - Timer cool written in GO")
-	fmt.Fprintf(out, "Usage: %s countdown \n\n", os.Args[0])
+	fmt.Fprintf(out, "------------------------------------\n\n")
+	fmt.Fprintf(out, "Usage: go-timer <command> \n\n")
+	fmt.Fprintf(out, "where <command> is one of:\n")
+	fmt.Fprintf(out, "\tcountdown, interval, stopwatch, version, help, usage\n")
 }
 
 // printVersion prints the current go-timer version
