@@ -65,7 +65,7 @@ func BenchmarkFormat(b *testing.B) {
 	}
 }
 
-func BenchmarkformatAlternative(b *testing.B) {
+func BenchmarkFormatAlternative(b *testing.B) {
 	duration, _ := time.ParseDuration("12h34m56s789ms")
 	b.ResetTimer()
 

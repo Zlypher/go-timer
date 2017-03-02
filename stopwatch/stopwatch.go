@@ -42,7 +42,7 @@ func (s Stopwatch) Run(args []string) int {
 				break
 			}
 
-			fmt.Fprintln(out, "INPUT: %v", text)
+			fmt.Fprintf(out, "INPUT: %v\n", text)
 		}
 	}()
 
