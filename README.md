@@ -1,6 +1,6 @@
 # go-timer
 
-[![CircleCI](https://circleci.com/gh/Zlypher/go-timer.svg?style=shield)](https://circleci.com/gh/Zlypher/go-timer)
+[![CircleCI](https://circleci.com/gh/zlypher/go-timer.svg?style=shield)](https://circleci.com/gh/zlypher/go-timer)
 
 go-timer is a simple cli countdown timer. It is written in [Golang](https://golang.org/) (mainly to get a better understanding of the language). Feel free to fork/modify/play around with it as you see fit.
 
