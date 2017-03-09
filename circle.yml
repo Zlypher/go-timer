@@ -4,8 +4,11 @@ machine:
 
 dependencies:
   pre:
+    - go get -u github.com/haya14busa/goverage
     - rm -rf $REPO_PATH
 
 test:
   pre:
     - go vet ./...
+  override:
+    - goverage -v coverprofile=coverage.out ./...
